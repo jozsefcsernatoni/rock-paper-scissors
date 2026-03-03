@@ -24,31 +24,54 @@ return cpChoice;
 
 //read user input, and write it to the console
 function getHumanChoice(){
-    let hmChoice = prompt("What's your choice(rock, paper, scissors)?");
+    let hmChoice = prompt("What's your choice(rock, paper, scissors)?").toLowerCase();
     return hmChoice;
 }
 
-//return the winner of the game
-function playRound(humanChoice,computerChoice){
+function playGame(){
+
+    //return the winner of the round
+    function playRound(humanChoice,computerChoice){
+    
+
+    //function to compute the message
+    function compMessage(result, computerChoice,humanChoice){
     let message="";
-humanChoice=humanChoice.toLowerCase();
-//return humanChoice + " "+ computerChoice;
-if (computerChoice===humanChoice){
-    message="It's a tie!" + computerChoice.charAt(0).toUpperCase() + computerChoice.slice(1,computerChoice.length)+" and " +humanChoice.charAt(0).toUpperCase()+humanChoice.slice(1,humanChoice.length) ;
-} else if (computerChoice==="rock" && humanChoice==="paper"){
-message="Wou win! "+ computerChoice.charAt(0).toUpperCase() + computerChoice.slice(1,computerChoice.length)+" and " +humanChoice.charAt(0).toUpperCase()+humanChoice.slice(1,humanChoice.length) ;
-} else if (computerChoice==="rock" && humanChoice==="scissors"){
-message="Wou loose!"+ computerChoice.charAt(0).toUpperCase() + computerChoice.slice(1,computerChoice.length)+" and " +humanChoice.charAt(0).toUpperCase()+humanChoice.slice(1,humanChoice.length) ;
-} else if (computerChoice==="paper" && humanChoice==="rock"){
-message="Wou loose!"+ computerChoice.charAt(0).toUpperCase() + computerChoice.slice(1,computerChoice.length)+" and " +humanChoice.charAt(0).toUpperCase()+humanChoice.slice(1,humanChoice.length) ;
-} else if (computerChoice==="paper" && humanChoice==="scissors"){
-message="Wou win!"+ computerChoice.charAt(0).toUpperCase() + computerChoice.slice(1,computerChoice.length)+" and " +humanChoice.charAt(0).toUpperCase()+humanChoice.slice(1,humanChoice.length) ;
-} else if (computerChoice==="scissors" && humanChoice==="paper"){
-message="Wou loose!"+ computerChoice.charAt(0).toUpperCase() + computerChoice.slice(1,computerChoice.length)+" and " +humanChoice.charAt(0).toUpperCase()+humanChoice.slice(1,humanChoice.length) ;
-} else if (computerChoice==="scissors" && humanChoice==="rock"){
-message="Wou win!"+ computerChoice.charAt(0).toUpperCase() + computerChoice.slice(1,computerChoice.length)+" and " +humanChoice.charAt(0).toUpperCase()+humanChoice.slice(1,humanChoice.length) ;
-}
-return message;
+    message=result+ " Computer: " + computerChoice.charAt(0).toUpperCase() + computerChoice.slice(1,computerChoice.length)+" and Human: " +humanChoice.charAt(0).toUpperCase()+humanChoice.slice(1,humanChoice.length);
+    console.log(message);
+    }
+
+    if (computerChoice===humanChoice){
+        compMessage("It's a tie!", computerChoice,humanChoice);
+    } else if (computerChoice==="rock" && humanChoice==="paper"){
+        compMessage("You win!", computerChoice,humanChoice);
+        humanScore++;
+    } else if (computerChoice==="rock" && humanChoice==="scissors"){
+        compMessage("You loose!", computerChoice,humanChoice);
+        computerScore++;
+    } else if (computerChoice==="paper" && humanChoice==="rock"){
+        compMessage("You loose!", computerChoice,humanChoice);
+        computerScore++;
+    } else if (computerChoice==="paper" && humanChoice==="scissors"){
+        compMessage("You win!", computerChoice,humanChoice);
+        humanScore++;
+    } else if (computerChoice==="scissors" && humanChoice==="paper"){
+        compMessage("You loose!", computerChoice,humanChoice);
+        computerScore++;
+    } else if (computerChoice==="scissors" && humanChoice==="rock"){
+        compMessage("You win!", computerChoice,humanChoice);
+        humanScore++;
+    }
+    }
+
+for(let i=0;i<5;i++){
+    const humanSelection = getHumanChoice();
+const computerSelection = getComputerChoice();
+
+    playRound(humanSelection, computerSelection);
+   }
+
+console.log("Results: -Computer: "+computerScore+ " -Human: "+humanScore);
 }
 
-console.log(playRound(getHumanChoice(),getComputerChoice()));
+playGame();
