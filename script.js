@@ -32,12 +32,17 @@ function playGame(){
 
     //return the winner of the round
     function playRound(humanChoice,computerChoice){
-    
+        
+        // function to capitalize result
+        function capitalize(txtToChange){
+            txtToChange=txtToChange.charAt(0).toUpperCase() + txtToChange.slice(1,txtToChange.length);
+            return txtToChange;
+        }
 
     //function to compute the message
     function compMessage(result, computerChoice,humanChoice){
     let message="";
-    message=result+ " Computer: " + computerChoice.charAt(0).toUpperCase() + computerChoice.slice(1,computerChoice.length)+" and Human: " +humanChoice.charAt(0).toUpperCase()+humanChoice.slice(1,humanChoice.length);
+    message=result+ " Computer: " + capitalize(computerChoice) +" and Human: " + capitalize(humanChoice);
     console.log(message);
     }
 
