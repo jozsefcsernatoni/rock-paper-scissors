@@ -2,6 +2,8 @@
 
 let humanScore=0;
 let computerScore=0;
+const divResults=document.querySelector(".results");
+let counter=0;
 
 //create a function to return a random number between 0 and 2
 function getRandomNumber(max=3){
@@ -10,25 +12,12 @@ return Math.floor(Math.random() * max);
 
 //create a function to return rock, paper, scissors based random number
 function getComputerChoice(cpNumber=getRandomNumber()){
-    cpChoice="";
-switch(cpNumber){
-    case 0: cpChoice="rock";
-    break;
-    case 1: cpChoice="paper";
-    break;
-    case 2: cpChoice="scissors";
-    break;
-}
-return cpChoice;
+let cpChoice=["rock","paper","scissors"];
+return cpChoice[cpNumber];
 }
 
-//read user input, and write it to the console
-function getHumanChoice(){
-    let hmChoice = prompt("What's your choice(rock, paper, scissors)?").toLowerCase();
-    return hmChoice;
-}
 
-function playGame(){
+function playGame(hmSelection){
 
     //return the winner of the round
     function playRound(humanChoice,computerChoice){
@@ -43,7 +32,9 @@ function playGame(){
     function compMessage(result, computerChoice,humanChoice){
     let message="";
     message=result+ " Computer: " + capitalize(computerChoice) +" and Human: " + capitalize(humanChoice);
-    console.log(message);
+    
+    divResults.appendChild(document.createTextNode(message));
+    divResults.appendChild(document.createElement("br"));
     }
 
     if (computerChoice===humanChoice){
@@ -69,14 +60,26 @@ function playGame(){
     }
     }
 
-for(let i=0;i<5;i++){
-    const humanSelection = getHumanChoice();
+
+    const humanSelection = hmSelection;
 const computerSelection = getComputerChoice();
 
     playRound(humanSelection, computerSelection);
-   }
-
-console.log("Results: -Computer: "+computerScore+ " -Human: "+humanScore);
 }
 
-playGame();
+
+//runs the game based on click, upt five times
+const usrButtons=document.querySelector(".buttons");
+usrButtons.addEventListener("click", function(event){
+if(counter<5)
+{
+    playGame(event.target.value.toLowerCase());
+    counter++;
+} 
+if (counter===5){
+    divResults.appendChild(document.createTextNode("Results: Computer: "+computerScore+ " Human: "+humanScore +". "));
+    divResults.appendChild(document.createTextNode(computerScore>humanScore? "I win!":computerScore<humanScore?"You win!":"It's a tie!"));
+}
+
+}
+);
